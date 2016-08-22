@@ -1,0 +1,23 @@
+#!/bin/bash
+
+echo "Cleaning up..."
+
+
+rm -rf Makefile
+rm -rf Makefile.in
+rm -rf aclocal.m4
+rm -rf autom4te.cache/
+rm -rf compile
+rm -rf config.*
+rm -rf configure
+rm -rf depcomp
+rm -rf install-sh
+rm -rf missing
+rm -rf stamp-h1
+rm -rf test-driver
+ 
+find . -name *.a -delete
+find . -name *.o -delete
+find . -name *.dirstamp -delete
+find . -name '.DS_Store' -type f -delete
+
