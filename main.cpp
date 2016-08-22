@@ -1,19 +1,21 @@
-#include <vector>
 #include <iostream>
+#include <vector>
+#include <Eigen/Dense>
+
 #include "mvrnorm.hpp"
 
 int main()
 {
-    Eigen::Vector2d mean;
-    Eigen::Matrix2d covar;
-    mean << -1,0.5; // Set the mean
-    // Create a covariance matrix
-    // Much wider than it is tall
-    // and rotated clockwise by a bit
-    covar = genCovar(3,0.1,M_PI/5.0);
-
-    // Create a bivariate gaussian distribution of doubles.
-    // with our chosen mean and covariance
-    Eigen::EigenMultivariateNormal<double,2> normX(mean,covar);
-
+     std::cout<<"Hello, World!"<<std::endl;
+    Eigen::Matrix<float, 3, 1> m;
+    m << 1, 2, 3;
+    Eigen::Matrix<float, 3, 3> cov;
+    cov << 1, 2, 3,
+        4, 5, 6,
+        7, 8, 9;
+    cstat::mvrnorm<float> s(m, cov);
+    std::vector<float> vec = s.sample();
+    for (unsigned int i = 0; i < vec.size();++i)
+        std::cout << vec[i] << "\n";
     return 0;
+}

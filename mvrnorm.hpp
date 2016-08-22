@@ -1,67 +1,68 @@
-#ifndef MVRNORM__HPP
-#define MVRNORM__HPP
+#ifndef CSTAT_MVRNORM__HPP
+#define CSTAT_MVRNORM__HPP
 
 #include <vector>
 #include <cmath>
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/normal_distribution.hpp>
-#include <boost/random/variate_generator.hpp>
-#include <Dense>
-#include <Eigenvalues> 
+#include <random>
+#include <Eigen/Dense>
+#include <Eigen/Eigenvalues>
 
-class mvrnorm
+namespace cstat
 {
-
-    boost::mt19937 rng;    // The uniform pseudo-random algorithm
-    boost::normal_distribution<double> norm;  // The gaussian combinator
-    boost::variate_generator<boost::mt19937&,boost::normal_distribution<double> >
-       randN; // The 0-mean unit-variance normal generator
-
-    Eigen::Matrix<double,10,10> rot;
-    Eigen::Matrix<double,10,1> scl;
-
-    Eigen::Matrix<double,10,1> mean_;
-
-public:
-
-    mvrnorm(std::vector<double>& mean,
-    		std::vector< std::vector<double> >& cov) 
-     :mean_(mean.data()), randN(rng,norm)
+    namespace internal
     {
-        cov_(cov);
+        template<typename T>
+        struct rnrorm
+        {
+            static std::mt19937 rng_;
+            mutable std::normal_distribution<T> norm_;
+
+            template<typename U>
+            inline T operator()(U, U = 0) const
+            {
+                return norm_(rng_);
+            }
+
+            inline void seed(const uint64_t &s) const
+            {
+                rng_.seed(s);
+            }
+        };
+
+        template<typename T>
+        std::mt19937 rnrorm<T>::rng_;
     }
 
-    std::vector<double> sample() const
+    template<typename T>
+    class mvrnorm
     {
-    	// Eigen::Matrix<double, SZ , 1> ret;
-     //    for (int i = 0; i < SZ ; ++i)        
-     //        ret[i] = gen_();
-     //    ret = sd_ * ret + mean_;
-        
-        std::vector<double> res(10);
-        for (int i = 0; i < 10; ++i)        
-            res[i] = randN();
-            // res[i] = ret(i, 0);
-      	return res;   
-    }
 
-private:
+    public:
+        mvrnorm(const Eigen::Matrix<T, Eigen::Dynamic, 1> &mean,
+                const Eigen::Matrix <T, Eigen::Dynamic, Eigen::Dynamic> &cov)
+            :mean_(mean), cov_(cov), LEN_(static_cast<unsigned int>(mean.rows()))
+        {
+            gen_.seed(23);
+            Eigen::SelfAdjointEigenSolver < Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> > slv(cov);
+            transform_ = slv.eigenvectors() *
+                slv.eigenvalues().cwiseMax(0).cwiseSqrt().asDiagonal();
+        }
 
-     /* Compute SVD
-     */
-    void cov_(std::vector< std::vector<double> >& cov) const
-    {
-        // Eigen::Matrix<double, SZ, SZ> covm;
-        // for (int i = 0; i < SZ; ++i)
-        //     for (int j = 0; j < SZ; ++j)
-        //     covm(i, j) = cov[i][j];
-        // Eigen::SelfAdjointEigenSolver< Eigen::Matrix<double, SZ, SZ > > solv(covm);
-        // sd_(solv.eigenvectors());
-        // Eigen::Matrix<double, SZ, 1> scl = solv.eigenvalues();
-        // for (int i = 0; i < SZ; ++i) scl(i, 0) = sqrt(scl(i, 0));
-        // sd_(sd_ * scl.asDiagonal());
-    }
+        std::vector<T> sample()
+        {
+            std::vector<T> vec(LEN_);
+            for (unsigned int i = 0; i < LEN_; ++i)
+                vec[i] = gen_();
 
-};
+        }
 
+    private:
+        Eigen::Matrix <T, Eigen::Dynamic, Eigen::Dynamic> cov_;
+        Eigen::Matrix <T, Eigen::Dynamic, Eigen::Dynamic> transform_;
+        const Eigen::Matrix<T, Eigen::Dynamic, 1> mean_;
+        const unsigned int LEN_;
+        internal::rnrorm<T> gen_;
+    };
+
+}
 #endif // MVRNORM__HPP
