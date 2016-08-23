@@ -22,3 +22,12 @@ nbbuild/
 nbdist/
 nbactions.xml
 .Rproj.user
+Makefile
+aclocal.m4
+configure
+cstat_tests
+cstat_tests.log
+cstat_tests.trs
+libcstat.a
+test-suite.log
+

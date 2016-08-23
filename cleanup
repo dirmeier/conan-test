@@ -15,6 +15,8 @@ rm -rf install-sh
 rm -rf missing
 rm -rf stamp-h1
 rm -rf test-driver
+rm -rf cstat_tests*
+rm -rf test-suite.log
  
 find . -name *.a -delete
 find . -name *.o -delete
