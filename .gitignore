@@ -1,7 +1,7 @@
-tests/stamp-h1
+*/stamp-h1
 tests/*.o
 tests/*.so
-tests/.dep/*
+tests/.deps/*
 tests/.dirstamp
 autom*
 config.*
@@ -19,14 +19,12 @@ dist
 *.iws
 out/
 test/
-run_local.sh
 .tmp
 nbproject/private/
 build/
 nbbuild/
 nbdist/
 nbactions.xml
-.Rproj.user
 Makefile
 aclocal.m4
 configure

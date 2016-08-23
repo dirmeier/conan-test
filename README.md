@@ -1,8 +1,5 @@
 <h1 align="center"> cstat </h1>
 
-![Build Status](https://travis-ci.org/rafstraumur/cstat.svg?branch=master)](https://travis-ci.org/rafstraumur/cstat.svg?branch=master)
-[![codecov](https://codecov.io/gh/rafstraumur/cstat/branch/master/graph/badge.svg)](https://codecov.io/gh/rafstraumur/cstat)
-
 Statistics header-only template library in C++.
 
 ## Introduction

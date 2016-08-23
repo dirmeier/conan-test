@@ -15,7 +15,8 @@ AC_MSG_CHECKING([whether configure should try to set CXXFLAGS])
 AS_IF(
 	[test "x${CXXFLAGS+set}" = "xset"],
 		[enable_cxxflags_setting=no],
-		[enable_cxxflags_setting=yes]
+		[enable_cxxflags_setting=yes
+		 CXXFLAGS=""]
 )
 AC_MSG_RESULT([$enable_cxxflags_setting])
 
@@ -25,24 +26,19 @@ AC_PROG_RANLIB
 
 AS_IF(
 	[test "x${enable_cxxflags_setting}" = "xyes"],
-	[	 
+	[
 		AX_APPEND_COMPILE_FLAGS([-O3 -Wall], [CXXFLAGS])
 		CXXFLAGS=$( echo $CXXFLAGS | $SED -e 's/^ *//' -e 's/ *$//' )
-	]	
+	]
 )
 
 dnl Other dependencies
 AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 AC_OPENMP
-AC_CHECK_HEADERS(
-	[Eigen/Dense], 
-	[found Eigen],
-	[AC_MSG_ERROR([could not find Eigen])]
-)
+CXXFLAGS="${CXXFLAGS} ${OPENMP_CXXFLAGS}"
 
-AC_SUBST([cstat_LDLIBS])
-AC_SUBST([cstat_CPPFLAGS])
-AC_SUBST([OPENMP_CXXFLAGS])
+dnl Eigen3
+PKG_CHECK_MODULES([eigen], [eigen3])
 
 AM_INIT_AUTOMAKE([1.14 foreign dist-bzip2 no-dist-gzip subdir-objects silent-rules])
 
