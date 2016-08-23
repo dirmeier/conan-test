@@ -17,7 +17,13 @@ rm -rf stamp-h1
 rm -rf test-driver
 rm -rf cstat_tests*
 rm -rf test-suite.log
+rm -rf tests/*.o
+rm -rf tests/*.so
+rm -rf tests/stamp-h1
+rm -rf tests/.deps/
  
+find . -name config.h -delete
+find . -name stamp-h1 -delete
 find . -name *.a -delete
 find . -name *.o -delete
 find . -name *.dirstamp -delete

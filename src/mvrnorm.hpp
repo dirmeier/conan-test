@@ -10,15 +10,16 @@
 #include <vector>
 #include <cmath>
 #include <random>
+#include <cstdint>
 #include <Eigen/Dense>
 #include <Eigen/Eigenvalues>
 
 namespace cstat
 {                
 
-template<typename T>
- class rnorm
-        {
+    template<typename T>
+    class rnorm
+    {
 
         public:
             rnorm(const unsigned long seed): rng_(seed), norm_()
@@ -32,7 +33,7 @@ template<typename T>
         private:
             std::mt19937 rng_;
             std::normal_distribution<T> norm_;
-        };
+    };
 
     template<typename T>
     class mvrnorm
@@ -66,7 +67,7 @@ template<typename T>
     private:
         const uint32_t LEN_;
         const Eigen::Matrix<T, Eigen::Dynamic, 1> mean_;        
-        Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> cov_;
+        const Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> cov_;
         Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> transform_;    
         rnorm<T> ran_;       
 

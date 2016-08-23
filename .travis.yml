@@ -1,0 +1,9 @@
+language: cpp
+
+sudo: false
+
+install:
+  - port install eigen3
+  
+script:    
+  - ./configure && make && make check
