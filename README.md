@@ -1,8 +1,10 @@
-<h1 align="center"> cstat </h1>
+# conan-test
 
-Statistics header-only template library in C++.
+[![Project Status](http://www.repostatus.org/badges/latest/concept.svg)](http://www.repostatus.org/#concept)
 
-## Introduction
+> A small header only library to check out `conan.io`
+
+## About
 
 `cstat` is just another header-only template library for sampling from density and mass functions. Mainly for demonstration purposes...
 
@@ -24,4 +26,4 @@ make check
 
 ## Author
 
-* Simon Dirmeier <a href="mailto:simon.dirmeier@gmx.de">simon.dirmeier@gmx.de</a>
+* Simon Dirmeier <a href="mailto:simon.dirmeier@web.de">simon.dirmeier @ web.de</a>
