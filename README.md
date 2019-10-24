@@ -6,24 +6,17 @@
 
 ## About
 
-`cstat` is just another header-only template library for sampling from density and mass functions. Mainly for demonstration purposes...
+`conan-test` is an example package using [`conan.io`](https://conan.io/) as package manager.
 
-## Installation
  
-In order to use `cstat` you need to make sure to have Eigen installed. If you have it, run:
+In order to install the package you need to make sure to have `Eigen` installed. If you have it, run:
 
-```{shell}
-autoreconf -vif
-./configure CPPFLAGS="-I/path/to/eigen"
-```
-
-from the terminal. Then compile and check if everything works using:
-
-```shell
-make
-make check
+```sh
+mkdir build && cd build
+conan install ..
+conan build ..
 ```
 
 ## Author
 
-* Simon Dirmeier <a href="mailto:simon.dirmeier@web.de">simon.dirmeier @ web.de</a>
+Simon Dirmeier <a href="mailto:simon.dirmeier@web.de">simon.dirmeier @ web.de</a>
