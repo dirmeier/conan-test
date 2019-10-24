@@ -1,6 +1,7 @@
 # conan-test
 
 [![Project Status](http://www.repostatus.org/badges/latest/concept.svg)](http://www.repostatus.org/#concept)
+[![Build Status](https://travis-ci.org/dirmeier/conan-test.svg?branch=master)](https://travis-ci.org/dirmeier/conan-test)
 
 > A small header only library to check out `conan.io`
 
