@@ -5,7 +5,7 @@ project(
   default_options : [
     'buildtype=release',
     'warning_level=3',
-    'cpp_std=c++15',
+    'cpp_std=c++14',
     'b_ndebug=if-release'],
   license : 'GPL-3',
   meson_version : '>= 0.52.0')
@@ -17,9 +17,9 @@ add_global_arguments([
 
 # eigen dependency
 eigen_dep = dependency('eigen3', required : true)
+# header paths
+inc = include_directories('include')
 
-subdir('src')
+subdir('include')
+subdir('tests')
 
-if get_option('tests')
-  subdir('testsuite')
-endif

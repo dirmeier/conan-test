@@ -33,4 +33,4 @@ cstat_tests.log
 cstat_tests.trs
 libcstat.a
 test-suite.log
-
+builddir/*
